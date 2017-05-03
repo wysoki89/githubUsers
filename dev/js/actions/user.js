@@ -6,6 +6,7 @@ export function selectUser(user) {
         payload: user
     };
 }
+
 export function fetchUsers(url) {
     return {
         type:"FETCH_USERS",

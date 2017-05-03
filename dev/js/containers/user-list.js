@@ -18,16 +18,23 @@ export default class UserList extends Component {
     render() {
         const { users } = this.props;
         const onSelect = () => {
+            console.log(input.value)
             const selectedUser = users.find((user) => user.login = input.value)
             this.props.dispatch(userActions.selectUser(selectedUser));
             window.open(selectedUser.html_url);
         }
+        const onEnter = (e) => {
+            if(e.key === "Enter"){
+                e.preventDefault();
+                onSelect()
+            }
+        }
         let input;
         return (
             <div>
-                <input ref={node => {
+                <input placeholder="type a github username" ref={node => {
                     input = node
-                }} list="users" onInput={this.onInput.bind(this)} ></input>
+                }} list="users" onInput={this.onInput.bind(this)} onKeyPress={onEnter}></input>
                 <datalist id="users">
                     {users.map(user => <option key={user.id} value={user.login} />)}
                 </datalist>
