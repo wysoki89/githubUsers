@@ -1,12 +1,8 @@
 import {combineReducers} from 'redux';
-import { usersHasErrored, usersIsLoading, users, selectUser, inputChange } from './users';
+import { users } from './users';
 
 const allReducers = combineReducers({
-    selectUser,
-    usersHasErrored,
-    usersIsLoading,
-    users,
-    inputChange
+    users
 });
 
 export default allReducers

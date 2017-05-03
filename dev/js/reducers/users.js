@@ -1,48 +1,36 @@
-export function selectUser(state = {}, action) {
-    switch (action.type) {
-        case 'SELECT_USER':
-            return action.user;
-
-        default:
-            return state;
-    }
+const initialState = {
+    fetching: false,
+    fetched: false,
+    users: [],
+    error: null,
+    selectedUser: null
 }
 
-export function usersHasErrored(state = false, action) {
+export function users(state = initialState, action) {
     switch (action.type) {
-        case 'USERS_HAS_ERRORED':
-            return action.hasErrored;
-
-        default:
-            return state;
+        case 'FETCH_USERS_PENDING': {
+            return Object.assign({}, state, {fetching:true});
+            break;
+        }
+        case 'FETCH_USERS_REJECTED': {
+            return Object.assign({}, state, {fetching:false, error: action.payload});
+            break;
+        }
+        case 'FETCH_USERS_FULFILLED': {
+            var users = action.payload.data.items;
+            if (users.length >= 30) {
+                users.slice(0, 30)
+            }   
+            return Object.assign({}, state, {fetching:false, fetched:true, users:users});
+            break;
+        }
+        case 'SELECT_USER': {
+             return Object.assign({}, state, {selectedUser: action.payload});
+             break;
+        }
     }
+    return state;
+
 }
 
-export function usersIsLoading(state = false, action) {
-    switch (action.type) {
-        case 'USERS_IS_LOADING':
-            return action.isLoading;
 
-        default:
-            return state;
-    }
-}
-
-export function users(state = [], action) {
-    switch (action.type) {
-        case 'USERS_FETCH_DATA_SUCCESS':
-            return action.users;
-
-        default:
-            return state;
-    }
-}
-
-export function inputChange(state = null, action) {
-    switch (action.type) {
-        case 'INPUT_CHANGED':
-            return action.input;
-       default:
-            return state;
-    }
-}
