@@ -19,8 +19,18 @@ export default class UserList extends Component {
         this.props.dispatch(userActions.fetchUsers(`https://api.github.com/search/users?q=${e.target.value} in:login`))
     }
     getUsers () {
-            return [1,2,3]
+        console.log(this.props.users)
+        if(this.props.users.length > 0){
+            console.log(this.props.users.map((user)=>user.login))
+            return this.props.users.map((user)=>user.login)
         }
+        else{
+            return []
+        }
+    }
+    handleUpdateInput (value) {
+        this.props.dispatch(userActions.fetchUsers(`https://api.github.com/search/users?q=${value} in:login`))
+    }
     render() {
         const { users } = this.props;
         const onSelect = () => {
@@ -35,7 +45,12 @@ export default class UserList extends Component {
                 onSelect()
             }
         const getUsers = () =>{
-            return [1,2,3]
+            console.log(users)
+            // if(users !=undefined){
+            //     return users.map((user)=>user.login)
+            //     console.log(users)
+            // }
+            return ["a","b","v"]
         }
         }
         let input;
@@ -52,6 +67,7 @@ export default class UserList extends Component {
                     <AutoComplete
                         hintText="Type anything"
                         dataSource={this.getUsers()}
+                        onUpdateInput={this.handleUpdateInput.bind(this)}
                     />
                 </MuiThemeProvider>
             </div>
