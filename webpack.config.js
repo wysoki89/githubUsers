@@ -14,7 +14,11 @@ module.exports = {
             {
                 test: /\.js$/,
                 loaders: ['babel'],
-                exclude: /node_modules/
+                exclude: /node_modules/,
+                // query: {
+                //     // presets: ['react', 'es2015'],
+                //     plugins: ['transform-decorators-legacy']
+                // }
             },
             {
                 test: /\.scss/,
