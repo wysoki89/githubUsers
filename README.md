@@ -10,3 +10,5 @@ Used technologies: webpack, react, redux
 
 $ npm install
 $ npm run start
+
+localhost:3000
